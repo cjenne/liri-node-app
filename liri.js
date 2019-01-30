@@ -1,26 +1,51 @@
+// At the top of the liri.js file, add code to read and set any environment variables with the dotenv package:
 
 require("dotenv").config();
 
-  var keys = require("./keys.js");
+// To retrieve the data that will power this app, you'll need to send requests using the axios package to the Bands in Town, Spotify and OMDB APIs. You'll find these Node packages crucial for your assignment.
 
+// Node-Spotify-API **differnt var from require key
+var spotifyapi = require("node-spotify-api");
+// Axios (You'll use Axios to grab data from the OMDB API and the Bands In Town API)
+var axios = require("axios");
+// Moment
+var moment = require("moment");
+// DotEnv (moved above)
 
-  var spotify = new Spotify(keys.spotify);
+// Require fs to read/create/update/delete/rename files
+var fs = require("fs");
 
-  let artist = process.argv.slice(2).join(" ");
+// Add the code required to import the keys.js file and store it in a variable.
 
-  geocoder.geocode(address, function(err, data) {
-    console.log(JSON.stringify(data[0], null, 2));
-  
-    var address = data[0];
-  
-    debugger;
-  
-    // Depending on what information is available for an address, build formatted search
-    var search = "";
+var keys = require("./keys.js");
+
+// You should then be able to access your keys information like so
+
+var spotify = new Spotify(keys.spotify);
+
 
 // concert-this <artist/band name here>
 
+
 //    * This will search the Bands in Town Artist Events API (`"https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp"`) for an artist and render the following information about each event to the terminal:
+
+axios
+  .get("https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp")
+  .then(function(response) {
+    console.log(response.data);
+  })
+  .catch(function(error) {
+    if (error.response) {
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      console.log(error.request);
+    } else {
+      console.log("Error", error.message);
+    }
+    console.log(error.config);
+  });
 
 //      * Name of the venue
 

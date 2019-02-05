@@ -88,7 +88,7 @@ function concertThis() {
 
 //    * This will show the following information about the song in your terminal/bash window
 
-function spotifyThis() {
+function spotifyThisSong() {
   if (typeof input === "undefined") {
     //    * If no song is provided then your program will default to "The Sign" by Ace of Base.
     input = "The Sign, Ace of Base";
@@ -115,35 +115,46 @@ function spotifyThis() {
 //    * This will output the following information to your terminal/bash window:
 
 //      ```
-function movieThis(input) {
+function movieThis() {
   if (typeof input === "undefined") {
     //    * If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-    input = "Mr Nobody";
+    input = "Mr. Nobody";
     // console.log(input);
   }
   //    * You'll use the `axios` package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
   axios.get("http://www.omdbapi.com/?t=" + input + "&y=&plot=full&tomatoes=true&apikey=trilogy")
     .then(function (response) {
+      if (response.data != undefined) {
       console.log("--------------------------------------------------------------------");
       //        * Title of the movie.
-      console.log("Title: " + response.data.Title);
+      console.log(`Title: ${response.data.Title}`);
+      // console.log("Title: " + response.data.Title);
       //        * Year the movie came out.
-      console.log("Year: " + response.data.Year);
+      console.log(`Year: ${response.data.Year}`);
+      // console.log("Year: " + response.data.Year);
       //        * IMDB Rating of the movie.
-      console.log("IMDB Rating: " + response.data.imdbRating);
+      console.log(`IMDB Rating: ${response.data.imdbRating}`)
+      // console.log("IMDB Rating: " + response.data.imdbRating);
       //        * Rotten Tomatoes Rating of the movie.
-      console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+      console.log(`Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}`)
+      // console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
       //        * Country where the movie was produced.
-      console.log("Country Produced: " + response.data.Country);
+      console.log(`Country Produced: ${response.data.Country}`)
+      // console.log("Country Produced: " + response.data.Country);
       //        * Language of the movie.
-      console.log("Language: " + response.data.Language);
+      console.log(`Language: ${response.data.Language}`)
+      // console.log("Language: " + response.data.Language);
       //        * Plot of the movie.
-      console.log("Plot: " + response.data.Plot);
+      console.log(`Plot: ${response.data.Plot}`)
+      // console.log("Plot: " + response.data.Plot);
       //        * Actors in the movie.
-      console.log("Actors: " + response.data.Actors);
+      console.log(`Actors: ${response.data.Actors}`)
+      // console.log("Actors: " + response.data.Actors);
       console.log("--------------------------------------------------------------------");
       // console.log(response2.data.Ratings);
-      //      ```
+    } else {
+      console.log("This movie can not be found. Please choose a new movie.")
+    }
     }
     );
 };
@@ -157,7 +168,7 @@ function doWhatItSays() {
     let dataArray = data.split(",");
     command = dataArray[0];
     input = dataArray[1];
-    spotifyThis(input);
+    spotifyThisSong(input);
   });
 }
 
